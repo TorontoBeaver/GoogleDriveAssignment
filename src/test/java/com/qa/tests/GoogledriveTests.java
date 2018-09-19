@@ -10,51 +10,55 @@ import org.testng.annotations.Test;
 
 import java.util.Properties;
 
-public class GoogledriveTests  {
+public class GoogledriveTests {
 
 	Properties prop = PropertyLoader.loadProps("src/main/java/com/qa/config/confog.properties");
 
 	@Test
 	public void createFolderTest() {
 		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
 		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 	}
+
 	@Test
-	public void moveFileToNewFolder(){
+	public void moveFileToNewFolder() {
 		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
-		new HomePage().mouseRightClick();
-		new HomePage().newFolderCreation();
-		new HomePage().dragAndDropeFile();
-		new HomePage().openNewFolder();
-		new HomePage().relocateFileFromFolderToMyDrive();
-		new HomePage().refreshPage();
-	}
-	@Test
-	public void openNewFolderTest(){
-		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
-		new HomePage().mouseRightClick();
-		new HomePage().newFolderCreation();
-		new HomePage().openNewFolder();
-	}
-	@Test
-	public void relocateFileFromFolderTest(){
-		new HomePage().refreshPage();
-		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
 		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 		new HomePage().dragAndDropeFile();
 		new HomePage().openNewFolder();
 		new HomePage().relocateFileFromFolderToMyDrive();
+
 	}
+
 	@Test
-	public void openMyDriveTest(){
+	public void openNewFolderTest() {
 		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
+		new HomePage().mouseRightClick();
+		new HomePage().newFolderCreation();
+		new HomePage().openNewFolder();
+	}
+
+	@Test
+	public void relocateFileFromFolderTest() {
+
+		new IntroductionPage().open().clickSignInButton();
+		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
+		new HomePage().mouseRightClick();
+		new HomePage().newFolderCreation();
+		new HomePage().dragAndDropeFile();
+		new HomePage().openNewFolder();
+		new HomePage().relocateFileFromFolderToMyDrive();
+	}
+
+	@Test
+	public void openMyDriveTest() {
+		new IntroductionPage().open().clickSignInButton();
+		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
 		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 		new HomePage().dragAndDropeFile();
@@ -66,5 +70,7 @@ public class GoogledriveTests  {
 
 
 	@AfterMethod(description = "close browser")
-	public void kill() { Browser.kill(); }
+	public void kill() {
+		Browser.kill();
+	}
 }

@@ -88,7 +88,7 @@ public class Browser {
 
 	}
 
-	public void NewFolderCreation(String newFoldersName) {
+	/*public void NewFolderCreation(String newFoldersName) {
 
 		takeScreenshot();
 		new Actions(driver).sendKeys(newFoldersName).perform();
@@ -96,7 +96,7 @@ public class Browser {
 		new Actions(driver).sendKeys(Keys.ENTER).perform();
 		takeScreenshot();
 
-	}
+	}*/
 
 	public void openNewFolder(By locator) {
 
