@@ -18,12 +18,14 @@ public class GoogledriveTests  {
 	public void createFolderTest() {
 		new IntroductionPage().open().clickSignInButton();
 		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 	}
 	@Test
 	public void moveFileToNewFolder(){
 		new IntroductionPage().open().clickSignInButton();
 		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 		new HomePage().dragAndDropeFile();
 		new HomePage().openNewFolder();
@@ -34,6 +36,7 @@ public class GoogledriveTests  {
 	public void openNewFolderTest(){
 		new IntroductionPage().open().clickSignInButton();
 		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 		new HomePage().openNewFolder();
 	}
@@ -42,6 +45,7 @@ public class GoogledriveTests  {
 		new HomePage().refreshPage();
 		new IntroductionPage().open().clickSignInButton();
 		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 		new HomePage().dragAndDropeFile();
 		new HomePage().openNewFolder();
@@ -51,12 +55,16 @@ public class GoogledriveTests  {
 	public void openMyDriveTest(){
 		new IntroductionPage().open().clickSignInButton();
 		new LoginPage().logIn(prop.getProperty("username"),prop.getProperty("password"));
+		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
 		new HomePage().dragAndDropeFile();
 		new HomePage().openNewFolder();
 		new HomePage().relocateFileFromFolderToMyDrive();
 		new HomePage().openDrive();
+
 	}
+
+
 	@AfterMethod(description = "close browser")
 	public void kill() { Browser.kill(); }
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +31,7 @@ public class Browser {
 		}
 		return instance = init();
 	}
+
 	private static Browser init() {
 		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
 		WebDriver driver = new ChromeDriver();
@@ -39,10 +41,12 @@ public class Browser {
 		driver.manage().deleteAllCookies();
 		return new Browser(driver);
 	}
+
 	public void open(String url) {
 		System.out.println("Going to URL: " + url);
 		driver.get(url);
 	}
+
 	public static void kill() {
 		if (instance != null) {
 			try {
@@ -52,15 +56,19 @@ public class Browser {
 			}
 		}
 	}
+
 	public void waitForElementVisible(By locator) {
 		new WebDriverWait(driver, WAIT_ELEMENT_TIMEOUT).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
 	}
+
 	public void highlightElement(By locator) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.border='5px solid orange'", driver.findElement(locator));
 	}
+
 	public void unHighlightElement(By locator) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.border='0px'", driver.findElement(locator));
 	}
+
 	public void click(By locator) {
 		waitForElementVisible(locator);
 		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
@@ -69,17 +77,27 @@ public class Browser {
 		unHighlightElement(locator);
 		driver.findElement(locator).click();
 	}
-	public void rightClickAndNewFolderCreation(String newFoldersName) {
 
+	public void rightClick(By locator) {
+		waitForElementVisible(locator);
+		System.out.println("Clicking right button on the element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
+		highlightElement(locator);
 		takeScreenshot();
-		new Actions(driver).contextClick().sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+		unHighlightElement(locator);
+		new Actions(driver).contextClick(driver.findElement(locator)).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
+
+	}
+
+	public void NewFolderCreation(String newFoldersName) {
+
 		takeScreenshot();
 		new Actions(driver).sendKeys(newFoldersName).perform();
 		takeScreenshot();
 		new Actions(driver).sendKeys(Keys.ENTER).perform();
 		takeScreenshot();
-		takeScreenshot();
+
 	}
+
 	public void openNewFolder(By locator) {
 
 		waitForElementVisible(locator);
@@ -91,6 +109,7 @@ public class Browser {
 		new Actions(driver).doubleClick(element).perform();
 		takeScreenshot();
 	}
+
 	public void openMyDrive(By locator) {
 		waitForElementVisible(locator);
 		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
@@ -101,6 +120,7 @@ public class Browser {
 		new Actions(driver).click(element).perform();
 		takeScreenshot();
 	}
+
 	public void dragAndDrop(By locator, By targetLocator) {
 		waitForElementVisible(locator);
 		waitForElementVisible(targetLocator);
@@ -113,6 +133,7 @@ public class Browser {
 		takeScreenshot();
 		takeScreenshot();
 	}
+
 	public void type(By locator, String text) {
 		waitForElementVisible(locator);
 		highlightElement(locator);
@@ -122,11 +143,13 @@ public class Browser {
 		takeScreenshot();
 		unHighlightElement(locator);
 	}
+
 	public void refresh() {
 		driver.navigate().refresh();
 		takeScreenshot();
 
 	}
+
 	public void takeScreenshot() {
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
