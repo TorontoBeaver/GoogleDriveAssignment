@@ -1,14 +1,18 @@
 package com.qa.tests;
 
 import com.qa.base.Browser;
-import com.qa.pages.AbstractPage;
 import com.qa.pages.HomePage;
 import com.qa.pages.IntroductionPage;
 import com.qa.pages.LoginPage;
+import com.qa.utils.PropertyLoader;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-public class GoogledriveTests extends AbstractPage {
+import java.util.Properties;
+
+public class GoogledriveTests  {
+
+	Properties prop = PropertyLoader.loadProps("src/main/java/com/qa/config/confog.properties");
 
 	@Test
 	public void createFolderTest() {
