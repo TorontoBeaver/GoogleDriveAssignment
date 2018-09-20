@@ -88,17 +88,7 @@ public class Browser {
 
 	}
 
-	/*public void NewFolderCreation(String newFoldersName) {
-
-		takeScreenshot();
-		new Actions(driver).sendKeys(newFoldersName).perform();
-		takeScreenshot();
-		new Actions(driver).sendKeys(Keys.ENTER).perform();
-		takeScreenshot();
-
-	}*/
-
-	public void openNewFolder(By locator) {
+	public void doubleClick(By locator) {
 
 		waitForElementVisible(locator);
 		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
@@ -107,17 +97,6 @@ public class Browser {
 		unHighlightElement(locator);
 		WebElement element = driver.findElement(locator);
 		new Actions(driver).doubleClick(element).perform();
-		takeScreenshot();
-	}
-
-	public void openMyDrive(By locator) {
-		waitForElementVisible(locator);
-		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
-		highlightElement(locator);
-		WebElement element = driver.findElement(locator);
-		takeScreenshot();
-		unHighlightElement(locator);
-		new Actions(driver).click(element).perform();
 		takeScreenshot();
 	}
 
@@ -139,15 +118,8 @@ public class Browser {
 		highlightElement(locator);
 		System.out.println("Typing text '" + text + "' to input form '" + driver.findElement(locator).getAttribute("name") + "' (Located: " + locator + ")");
 		driver.findElement(locator).sendKeys(text);
-
 		takeScreenshot();
 		unHighlightElement(locator);
-	}
-
-	public void refresh() {
-		driver.navigate().refresh();
-		takeScreenshot();
-
 	}
 
 	public void takeScreenshot() {
