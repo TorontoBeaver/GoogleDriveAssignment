@@ -2,13 +2,16 @@ package com.qa.base;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
@@ -25,16 +28,18 @@ public class Browser {
 		this.driver = driver;
 	}
 
-	public static Browser getInstance() {
+	public static Browser getInstance() throws MalformedURLException {
 		if (instance != null) {
 			return instance;
 		}
 		return instance = init();
 	}
 
-	private static Browser init() {
-		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-		WebDriver driver = new ChromeDriver();
+	private static Browser init() throws MalformedURLException {
+
+		/*System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+		WebDriver driver = new ChromeDriver();*/
+		WebDriver driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
 		driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(COMMAND_DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		driver.manage().window().fullscreen();
@@ -134,6 +139,3 @@ public class Browser {
 		}
 	}
 }
-
-
-
