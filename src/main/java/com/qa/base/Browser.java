@@ -2,16 +2,16 @@ package com.qa.base;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
@@ -21,30 +21,41 @@ public class Browser {
 	private static int WAIT_ELEMENT_TIMEOUT = 10;
 	private static String SCREENSHOTS_NAME_TPL = "screenshots/scr";
 	private WebDriver driver;
-
 	private static Browser instance = null;
 
 	private Browser(WebDriver driver) {
 		this.driver = driver;
 	}
 
-	public static Browser getInstance() throws MalformedURLException {
+
+	public static Browser getInstance() {
+
 		if (instance != null) {
 			return instance;
 		}
 		return instance = init();
 	}
 
-	private static Browser init() throws MalformedURLException {
-
-		/*System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-		WebDriver driver = new ChromeDriver();*/
-		WebDriver driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), DesiredCapabilities.chrome());
+	private static Browser init() {
+		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+		WebDriver driver = new ChromeDriver(getChromeDriverProfile() );
 		driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(COMMAND_DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		driver.manage().window().fullscreen();
 		driver.manage().deleteAllCookies();
 		return new Browser(driver);
+	}
+
+	private static DesiredCapabilities getChromeDriverProfile() {
+
+		HashMap<String, Object> chromePrefs = new HashMap< ~ > ();
+		chromePrefs.put("profile.default_content_settings.popups", 0);
+		chromePrefs.put("download_default_directory", TestRunnerOptions.DOWNLOAD_DIR);
+		chromePrefs.put("dounload_prompt_for_download", false);
+		ChromeOptions = new ChromeOptions("prefs", chromePrefs);
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		return capabilities;
 	}
 
 	public void open(String url) {
@@ -67,7 +78,8 @@ public class Browser {
 	}
 
 	public void highlightElement(By locator) {
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.border='5px solid orange'", driver.findElement(locator));
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid orange'", driver.findElement(locator));
+
 	}
 
 	public void unHighlightElement(By locator) {
@@ -75,12 +87,23 @@ public class Browser {
 	}
 
 	public void click(By locator) {
-		waitForElementVisible(locator);
+		//waitForElementVisible(locator);
 		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
 		highlightElement(locator);
 		takeScreenshot();
 		unHighlightElement(locator);
 		driver.findElement(locator).click();
+	}
+
+	public void clickForTwoArrowsDown(By locator) {
+
+		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
+		highlightElement(locator);
+		takeScreenshot();
+		unHighlightElement(locator);
+
+		driver.findElement(locator).sendKeys("src/main/java/com/qa/config/confog.properties");
+		takeScreenshot();
 	}
 
 	public void rightClick(By locator) {
@@ -96,7 +119,7 @@ public class Browser {
 	public void doubleClick(By locator) {
 
 		waitForElementVisible(locator);
-		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
+		System.out.println("Double clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
 		highlightElement(locator);
 		takeScreenshot();
 		unHighlightElement(locator);
@@ -139,3 +162,4 @@ public class Browser {
 		}
 	}
 }
+

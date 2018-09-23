@@ -31,7 +31,6 @@ public class GoogledriveTests {
 		new HomePage().dragAndDropeFile();
 		new HomePage().openNewFolder();
 		new HomePage().relocateFileFromFolderToMyDrive();
-
 	}
 
 	@Test
@@ -67,6 +66,13 @@ public class GoogledriveTests {
 		new HomePage().openDrive();
 
 	}
+
+	/*@Test
+	public void loadFileTest(){
+		new IntroductionPage().open().clickSignInButton();
+		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
+		new HomePage().uploadFile();
+	}*/
 
 
 	@AfterMethod(description = "close browser")

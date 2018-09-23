@@ -12,6 +12,9 @@ public class HomePage extends AbstractPage {
 	private static final By GOOGLE_MIDDLE_POINT = By.xpath("//div[@data-target=\"sortSwitcherContainer\"]");
 	private static final By NEW_FOLDERNAME_LOCATOR = By.xpath("(//input[@class=\"lb-k-Kk g-Gh\"])");
 	private static final By BUTTON_NAME_CREATE_LOCATOR = By.xpath("//button[@name=\"ok\"]");
+	private static final By NEW_BUTTON_LOCATOR = By.xpath("//button[@aria-label=\"New\"]");
+	private static final By LOCATOR = By.xpath("//*[@id=\":48\"]/div/span[2]/span/div");
+	private static final By LOCATOR_222 = By.xpath("/html/body/input[2]");
 
 
 	public void dragAndDropeFile() {
@@ -44,7 +47,14 @@ public class HomePage extends AbstractPage {
 		browser.waitForElementVisible(NEW_FOLDER_LOCATOR);
 		browser.takeScreenshot();
 
-
 	}
 
+	public void uploadFile() {
+         browser.click(NEW_BUTTON_LOCATOR);
+		browser.click(LOCATOR);
+		//browser.clickForTwoArrowsDown(LOCATOR);
+		browser.type(LOCATOR_222,"Macintosh HD\u2069 ▸\u2068Users\u2069 ▸\u2068vladimirnemtcev\u2069 ▸\u2068Desktop\u2069 ▸images.jpeg");
+
+
+	}
 }
