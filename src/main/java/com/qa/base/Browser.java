@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
-	private static final String  DOWNLOAD_DIR = "DownloadsFolder";
+	private static final String DOWNLOAD_DIR = "DownloadsFolder";
 	private static int PAGE_LOAD_DEFAULT_TIMEOUT_SECONDS = 15;
 	private static int COMMAND_DEFAULT_TIMEOUT_SECONDS = 20;
 	private static int WAIT_ELEMENT_TIMEOUT = 10;
@@ -39,7 +39,7 @@ public class Browser {
 
 	private static Browser init() {
 		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-		WebDriver driver = new ChromeDriver(getChromeDriverProfile() );
+		WebDriver driver = new ChromeDriver(getChromeDriverProfile());
 		driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(COMMAND_DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
 		driver.manage().window().fullscreen();
@@ -48,7 +48,7 @@ public class Browser {
 	}
 
 	private static DesiredCapabilities getChromeDriverProfile() {
-		HashMap<String, Object> chromePrefs = new HashMap<String, Object> ();
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 		chromePrefs.put("profile.default_content_settings.popups", 0);
 		chromePrefs.put("download_default_directory", DOWNLOAD_DIR);
 		chromePrefs.put("dounload_prompt_for_download", false);
@@ -96,6 +96,7 @@ public class Browser {
 		driver.findElement(locator).click();
 	}
 
+
 	public void clickForTwoArrowsDown(By locator) {
 
 		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
@@ -129,6 +130,11 @@ public class Browser {
 		takeScreenshot();
 	}
 
+	public void refresh() {
+		driver.navigate().refresh();
+	}
+
+
 	public void dragAndDrop(By locator, By targetLocator) {
 		waitForElementVisible(locator);
 		waitForElementVisible(targetLocator);
@@ -138,7 +144,6 @@ public class Browser {
 		System.out.println("Dragging element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")" +
 				"to '" + driver.findElement(targetLocator).getText() + "' (Located: " + targetLocator + ")");
 		(new Actions(driver)).dragAndDrop(element, target).perform();
-		takeScreenshot();
 		takeScreenshot();
 	}
 

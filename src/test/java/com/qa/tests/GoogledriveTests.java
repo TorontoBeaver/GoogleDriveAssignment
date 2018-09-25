@@ -20,6 +20,10 @@ public class GoogledriveTests {
 		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
 		new HomePage().mouseRightClick();
 		new HomePage().newFolderCreation();
+		new HomePage().openDrive();
+		new HomePage().removeNewFolder();
+		new HomePage().openDrive();
+
 	}
 
 	@Test
@@ -31,41 +35,12 @@ public class GoogledriveTests {
 		new HomePage().dragAndDropeFile();
 		new HomePage().openNewFolder();
 		new HomePage().relocateFileFromFolderToMyDrive();
-	}
-
-	@Test
-	public void openNewFolderTest() {
-		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
-		new HomePage().mouseRightClick();
-		new HomePage().newFolderCreation();
-		new HomePage().openNewFolder();
-	}
-
-	@Test
-	public void relocateFileFromFolderTest() {
-
-		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
-		new HomePage().mouseRightClick();
-		new HomePage().newFolderCreation();
-		new HomePage().dragAndDropeFile();
-		new HomePage().openNewFolder();
-		new HomePage().relocateFileFromFolderToMyDrive();
-	}
-
-	@Test
-	public void openMyDriveTest() {
-		new IntroductionPage().open().clickSignInButton();
-		new LoginPage().logIn(prop.getProperty("username"), prop.getProperty("password"));
-		new HomePage().mouseRightClick();
-		new HomePage().newFolderCreation();
-		new HomePage().dragAndDropeFile();
-		new HomePage().openNewFolder();
-		new HomePage().relocateFileFromFolderToMyDrive();
 		new HomePage().openDrive();
-
+		new HomePage().removeNewFolder();
+		new HomePage().openDrive();
 	}
+
+
 
 	/*@Test
 	public void loadFileTest(){
