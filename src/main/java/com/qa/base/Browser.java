@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
+	private static final String  DOWNLOAD_DIR = "DownloadsFolder";
 	private static int PAGE_LOAD_DEFAULT_TIMEOUT_SECONDS = 15;
 	private static int COMMAND_DEFAULT_TIMEOUT_SECONDS = 20;
 	private static int WAIT_ELEMENT_TIMEOUT = 10;
@@ -47,12 +48,12 @@ public class Browser {
 	}
 
 	private static DesiredCapabilities getChromeDriverProfile() {
-
-		HashMap<String, Object> chromePrefs = new HashMap< ~ > ();
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object> ();
 		chromePrefs.put("profile.default_content_settings.popups", 0);
-		chromePrefs.put("download_default_directory", TestRunnerOptions.DOWNLOAD_DIR);
+		chromePrefs.put("download_default_directory", DOWNLOAD_DIR);
 		chromePrefs.put("dounload_prompt_for_download", false);
-		ChromeOptions = new ChromeOptions("prefs", chromePrefs);
+		ChromeOptions options = new ChromeOptions();
+		options.setExperimentalOption("prefs", chromePrefs);
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		return capabilities;
@@ -87,7 +88,7 @@ public class Browser {
 	}
 
 	public void click(By locator) {
-		//waitForElementVisible(locator);
+		waitForElementVisible(locator);
 		System.out.println("Clicking element '" + driver.findElement(locator).getText() + "' (Located: " + locator + ")");
 		highlightElement(locator);
 		takeScreenshot();

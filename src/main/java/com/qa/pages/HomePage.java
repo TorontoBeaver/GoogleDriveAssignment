@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class HomePage extends AbstractPage {
 
-	private static final By NEW_FOLDER_LOCATOR = By.xpath("//span[contains(text(),'NewOne')]");
+	private static final By NEW_FOLDER_LOCATOR = By.xpath("//div[@aria-label=\"NewOne\"]");
 	private static final By FILE_LOCATOR = By.xpath("//span[text()='Tesla.jpg']");
 	private static final By GOOGLE_DRIVE_LOCATOR = By.xpath("//span[@data-tooltip='My Drive']");
 	private static final By GOOGLE_DRIVE_LOCATOR2 = By.xpath("//span[@data-tooltip='My Drive']");
@@ -15,6 +15,7 @@ public class HomePage extends AbstractPage {
 	private static final By NEW_BUTTON_LOCATOR = By.xpath("//button[@aria-label=\"New\"]");
 	private static final By LOCATOR = By.xpath("//*[@id=\":48\"]/div/span[2]/span/div");
 	private static final By LOCATOR_222 = By.xpath("/html/body/input[2]");
+	private static final By NEW_LOCATION_FILE_LOCATOR = By.xpath("//div[@aria-label=\"Tesla.jpg\"]");
 
 
 	public void dragAndDropeFile() {
@@ -26,7 +27,7 @@ public class HomePage extends AbstractPage {
 	}
 
 	public void relocateFileFromFolderToMyDrive() {
-		browser.dragAndDrop(FILE_LOCATOR, GOOGLE_DRIVE_LOCATOR);
+		browser.dragAndDrop(NEW_LOCATION_FILE_LOCATOR, GOOGLE_DRIVE_LOCATOR);
 	}
 
 	public void openDrive() {
